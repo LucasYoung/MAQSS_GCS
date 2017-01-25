@@ -40,6 +40,7 @@ function handleGenericMsg(msg) {
         msgType:"INVALID",
         vehicleID:-1,
         vehicleLocation:[0,0,0],
+        vehicleVelocity:[0,0,0],
         vehicleStatus:"OFFLINE",
         vehicleRole:-1,
         targetLocation:[0,0,0]
@@ -58,8 +59,9 @@ function handleGenericMsg(msg) {
         console.log("Handle UPDT Msg");
         msg_container.vehicleID = parseInt(split_msg[2][1]);
         msg_container.vehicleLocation = Utils.strToFloat((split_msg[3].substr(1)).split(":"));
-        msg_container.vehicleStatus = split_msg[4].substr(1);
-        msg_container.vehicleRole = parseInt(split_msg[5][1]);
+        msg_container.vehicleVelocity = Utils.strtoFloat((split_msg[3].substr(1)).split(":"));
+        msg_container.vehicleStatus = split_msg[5].substr(1);
+        msg_container.vehicleRole = parseInt(split_msg[6][1]);
         console.log("Reported Role: " , msg_container.vehicleRole);
 
         // TODO: Change this to POI and make a TGT for verified targets

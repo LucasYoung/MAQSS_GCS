@@ -8,6 +8,7 @@ MapQuickItem {
     id: quadcopter
 
     property var coordLLA: [0, 0, 0]
+    property var velocity: [0, 0, 0]
     property string name
     property int idNumber: -1 // this probably shouldnt be working
     property string status
