@@ -5,10 +5,10 @@ CONFIG += c++11
 SOURCES += main.cpp \
     ../../NGCP/xbeeplus/lib/ReceivePacket.cpp \
     ../../NGCP/xbeeplus/lib/SerialXbee.cpp \
-#    ../../NGCP/xbeeplus/lib/TransmitRequest.cpp \
-#    ../../NGCP/xbeeplus/lib/Utility.cpp \
+    ../../NGCP/xbeeplus/lib/TransmitRequest.cpp \
+    ../../NGCP/xbeeplus/lib/Utility.cpp \
     XbeeInterface.cpp
-    #../../NGCP/xbeeplus/test/main.cpp
+    ../../NGCP/xbeeplus/test/main.cpp
 
 RESOURCES += qml.qrc \
     images/marker.png \
@@ -33,12 +33,12 @@ DISTFILES += \
     math.min.js
 
 HEADERS += \
-#    ../../NGCP/xbeeplus/include/Frame.hpp \
+    ../../NGCP/xbeeplus/include/Frame.hpp \
     ../../NGCP/xbeeplus/include/ReceivePacket.hpp \
     ../../NGCP/xbeeplus/include/SerialXbee.hpp \
-#    ../../NGCP/xbeeplus/include/TransmitRequest.hpp \
-#    ../../NGCP/xbeeplus/include/Utility.hpp \
-#    ../../NGCP/xbeeplus/include/Xbee.hpp \
+    ../../NGCP/xbeeplus/include/TransmitRequest.hpp \
+    ../../NGCP/xbeeplus/include/Utility.hpp \
+    ../../NGCP/xbeeplus/include/Xbee.hpp \
     XbeeInterface.hpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../xbeeplus/build/release/ -lxbee_plus

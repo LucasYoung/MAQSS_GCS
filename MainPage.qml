@@ -31,9 +31,9 @@ Item {
     property string currentMsg      // current message to be written to vehicles
 
     // collision detection/avoidance constants
-    property float hazard_distance: 10;
-    property float hazard_possible_collision: 10;
-    property float immediate_hazard_distance: 5;
+    property real hazard_distance: 10;
+    property real hazard_possible_collision: 10;
+    property real immediate_hazard_distance: 5;
 
     property bool capture: false    // stores if UI is in capture mode
     property bool missionSet: false // store if mission has been set by user
@@ -234,14 +234,14 @@ Item {
         }
 
         // Collision detection and avoidance - Lucas
-        float distanceBetween;
-        float relativeTimeUntilCollision; 
-        float[] pointOfCollision = new float[2];
-        boolean pause=false;
+        var distanceBetween;
+        var relativeTimeUntilCollision;
+        var pointOfCollision = [0.0,0.0];
+        var pause=false;
 
         for (qa=0; q<quadcopters.length; q++){
             pause=false;
-            for(qb=qa+1; q<quadcopters.length; q++){}
+            for(qb=qa+1; q<quadcopters.length; q++){
                     
                     distanceBetween = Math.sqrt( //distance formula
                                       Math.pow(quadcopters[qa].coordLLA[0]-quadcopters[qb].coordLLA[0],2)
@@ -250,11 +250,11 @@ Item {
                         relativeTimeUntilCollision=(quadcopters[qb].coordLLA[0]+quadcopters[qb].coordLLA[1]
                                                     -quadcopters[qa].coordLLA[0]-quadcopters[qa].coordLLA[1])
                                                     /(quadcopters[qa].velocity[0]+quadcopters[qa].velocity[1]
-                                                    -quadcopters[qb].velocity[0]+quadcopters[qb].veloicty1]));
+                                                    -quadcopters[qb].velocity[0]+quadcopters[qb].velocity[1]);
                         pointOfCollision[0]=quadcopters[qa].coordLLA[0]+quadcopters[qa].velocity[0]*relativeTimeUntilCollision;
                         pointOfCollision[1]=quadcopters[qa].coordLLA[1]+quadcopters[qa].velocity[1]*relativeTimeUntilCollision;
                         distCollisionToQuad = Math.sqrt( //distance formula
-                                      Math.pow(quadcopters[qa].coordLLA[0]-pointOfCOllision[0],2)
+                                      Math.pow(quadcopters[qa].coordLLA[0]-pointOfCollision[0],2)
                                     + Math.pow(quadcopters[qa].coordLLA[1]-pointOfCollision[1],2));
                         if(distCollisionToQuad<hazard_possible_collision || distanceBetween<immediate_hazard_distance){
                             pause=true;
@@ -264,7 +264,7 @@ Item {
             if(pause)
                 XbeeInterface.writeMsg("NEWMSG,Q"+qa+",PAUSE,1"); // pause the quad in place
             else
-                XbeeInterace.writeMsg("NEWMSG,Q"+qa+",PAUSE,0"); // unpause the quad if it was paused before
+                XbeeInterface.writeMsg("NEWMSG,Q"+qa+",PAUSE,0"); // unpause the quad if it was paused before
         }
 
         // TODO: Add handle TGT msg which marks the POI as verified
